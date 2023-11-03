@@ -1,11 +1,12 @@
+"use client"
 import { MantineProvider } from "@mantine/core"
 import "@mantine/core/styles.css"
 import { FC, ReactNode } from "react"
 
-interface ProvidersProps {
-    children?: ReactNode
+interface StyleProviderProps {
+    children: ReactNode
 }
-const Providers: FC<ProvidersProps> = ({ children }) => {
+const StyleProvider: FC<StyleProviderProps> = ({ children }) => {
     return (
         <MantineProvider>
             {children}
@@ -13,4 +14,4 @@ const Providers: FC<ProvidersProps> = ({ children }) => {
     )
 }
 
-export default Providers
+export default StyleProvider

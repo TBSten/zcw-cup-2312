@@ -1,3 +1,4 @@
+import "server-only"
 
 export const projectId = process.env.FIRESTORE_PROJECT_ID as string
 export const credentials = {

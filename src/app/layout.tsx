@@ -1,3 +1,4 @@
+import BaseLayout from '@/components/BaseLayout'
 import { ColorSchemeScript } from '@mantine/core'
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
@@ -22,7 +23,9 @@ export default function RootLayout({
       </head>
       <body className={inter.className}>
         <Providers>
-          {children}
+          <BaseLayout>
+            {children}
+          </BaseLayout>
         </Providers>
       </body>
     </html>

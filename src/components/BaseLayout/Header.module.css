@@ -4,3 +4,8 @@
     border-bottom: solid 1px var(--mantine-color-default-border);
     z-index: 100;
 }
+
+.icon {
+    border-radius: 9999px;
+    overflow: hidden;
+}

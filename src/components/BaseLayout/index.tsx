@@ -1,27 +1,25 @@
 "use client"
 
-import { AppShell, Container } from "@mantine/core"
+import { Container } from "@mantine/core"
 import { FC, ReactNode } from "react"
 import Footer from "./Footer"
 import Header from "./Header"
+import styles from "./index.module.css"
 
 interface BaseLayoutProps {
     children?: ReactNode
 }
 const BaseLayout: FC<BaseLayoutProps> = ({ children }) => {
     return (
-        <AppShell
-            header={{ height: 60 }}
-        >
+        <>
             <Header />
-
-            <AppShell.Main px={0}>
-                <Container>
+            <Container>
+                <main className={styles.main}>
                     {children}
-                </Container>
-            </AppShell.Main>
+                </main>
+            </Container>
             <Footer />
-        </AppShell>
+        </>
     )
 }
 

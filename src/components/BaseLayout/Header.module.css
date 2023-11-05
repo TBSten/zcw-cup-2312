@@ -1,0 +1,6 @@
+.header {
+    height: 60px;
+    background-color: var(--mantine-color-body);
+    border-bottom: solid 1px var(--mantine-color-default-border);
+    z-index: 100;
+}

@@ -8,4 +8,5 @@
 .icon {
     border-radius: 9999px;
     overflow: hidden;
+    border: solid 1px var(--mantine-color-default-border);
 }

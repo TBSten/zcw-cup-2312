@@ -16,7 +16,6 @@ export const useUser = () => {
         } as const
     } else {
         // not logined
-        console.log("not logined", session)
         return {
             status: "not-logined",
         } as const

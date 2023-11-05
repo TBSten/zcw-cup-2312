@@ -11,7 +11,6 @@ interface HeaderProps {
 }
 const Header: FC<HeaderProps> = () => {
     const { status, user } = useUser()
-    console.log("header", status, user)
 
     return (
         <Box component="header" className={styles.header}>

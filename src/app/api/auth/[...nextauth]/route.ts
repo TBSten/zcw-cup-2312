@@ -36,7 +36,6 @@ const handler = NextAuth({
     session: {
         strategy: "database",
     },
-    debug: true,
     secret: process.env.NEXTAUTH_SECRET,
 })
 

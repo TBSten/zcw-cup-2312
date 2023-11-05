@@ -1,3 +1,5 @@
+"use client"
+
 import { SignInOptions, SignOutParams, signIn, signOut } from "next-auth/react"
 
 export const loginGoogle = async (options: SignInOptions = {}) =>

@@ -13,7 +13,7 @@ const MenuSection: FC<MenuSectionProps> = () => {
             <SectionTitle>
                 メニュー
             </SectionTitle>
-            <SimpleGrid cols={{ xs: 1, sm: 2, md: 3, lg: 5 }}>
+            <SimpleGrid cols={{ xs: 1, sm: 3, lg: 4 }}>
                 <TopMenuCard
                     image={{
                         src: DeckAndProfileImage,

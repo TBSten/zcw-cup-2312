@@ -1,0 +1,20 @@
+.container {
+    padding-top: var(--mantine-spacing-sm);
+    padding-bottom: var(--mantine-spacing-sm);
+    padding-left: var(--mantine-spacing-xs);
+    padding-right: var(--mantine-spacing-xs);
+    background: var(--mangine-color-default);
+}
+
+.container:hover {
+    background: var(--mantine-color-default-hover);
+    cursor: pointer;
+}
+
+.selected {
+    border: solid 2px var(--mantine-primary-color-filled);
+}
+
+.selected:hover {
+    border: solid 2px var(--mantine-primary-color-filled-hover);
+}

@@ -1,21 +1,26 @@
 "use client"
 
 import Banner from "@/components/Banner"
+import Reward from "@/components/reward/Reward"
+import { sleep } from "@/util/sleep"
 import { useMutate } from "@/util/useMutate"
 import { Box, Button, Loader, TextInput, Textarea } from "@mantine/core"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FC, useState } from "react"
+import { useReward } from "react-rewards"
 import { Step, getNextStep, getPrevStep, getStepPath } from "../steps"
+import { handleSaveProfile } from "./actions"
 
 interface ProfileFormProps {
+    userId: string
     defaultValues: {
         name: string
         tonamelId: string
         other: string
     }
 }
-const ProfileForm: FC<ProfileFormProps> = ({ defaultValues }) => {
+const ProfileForm: FC<ProfileFormProps> = ({ userId, defaultValues }) => {
     const segment = "entry-profile"
     const nextStepPath = getStepPath(getNextStep(segment) as Step)
     const prevStepPath = getStepPath(getPrevStep(segment) as Step)
@@ -31,10 +36,18 @@ const ProfileForm: FC<ProfileFormProps> = ({ defaultValues }) => {
 
     const isValid = isValidName && isValidTonamelId && isValidOther
 
+    const goodRewardId = "good-profile"
+    const { reward } = useReward(goodRewardId, "emoji", { emoji: ["👍", "❤️"] })
+
     const router = useRouter()
     const saveProfile = useMutate(async () => {
         // TODO save profile
+        await handleSaveProfile(userId, {
+            name, tonamelId, detail: other,
+        })
         console.log("save profile", { name, tonamelId, other })
+        reward()
+        await sleep(1000)
         router.push(nextStepPath)
     })
 
@@ -81,7 +94,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ defaultValues }) => {
             </Button>
             <Button
                 onClick={saveProfile.mutate}
-                disabled={!isValid || saveProfile.isLoading}
+                disabled={!isValid || saveProfile.isLoading || saveProfile.isSuccess}
                 leftSection={<>{saveProfile.isLoading && <Loader />}</>}
             >
                 プロフィールを保存
@@ -92,6 +105,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ defaultValues }) => {
                     もう一度保存し直してください。
                 </Banner>
             }
+            <Reward id={goodRewardId} />
         </Box>
     )
 }

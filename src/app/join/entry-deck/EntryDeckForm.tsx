@@ -2,6 +2,7 @@
 import DeckInput, { useDeckInput } from "@/components/deck/DeckInput"
 import Reward from "@/components/reward/Reward"
 import { deckCardCount } from "@/deck/constants"
+import { Deck } from "@/deck/type"
 import { sleep } from "@/util/sleep"
 import { useMutate } from "@/util/useMutate"
 import { Alert, Anchor, Button, Loader } from "@mantine/core"
@@ -10,17 +11,19 @@ import { FC, useMemo } from "react"
 import { AiOutlineCheck } from "react-icons/ai"
 import { useReward } from "react-rewards"
 import { Step, getPrevStep, getStepPath } from "../steps"
+import { handleSaveDeck } from "./actions"
 
 interface EntryDeckFormProps {
+    defaultValue: Deck | null
     userId: string
 }
-const EntryDeckForm: FC<EntryDeckFormProps> = ({ userId }) => {
+const EntryDeckForm: FC<EntryDeckFormProps> = ({ defaultValue, userId }) => {
     const segment = "entry-deck"
     const prevStepPath = getStepPath(getPrevStep(segment) as Step)
 
-    const deckInput = useDeckInput({
-        cards: [],
+    const deckInput = useDeckInput(defaultValue ?? {
         userId,
+        cards: [],
     })
     const isOk = useMemo(() =>
         deckInput.deck.cards.filter(card => !!card).length === deckCardCount,
@@ -38,8 +41,7 @@ const EntryDeckForm: FC<EntryDeckFormProps> = ({ userId }) => {
         confetti.reward()
     }
     const saveDeck = useMutate(async () => {
-        // TODO save Deck
-        await sleep(1500)
+        await handleSaveDeck(deckInput.deck)
         // アニメーションの都合でawaitしない
         handleReward()
     })

@@ -1,6 +1,7 @@
 import { auth } from "@/auth/server/auth"
 import Banner from "@/components/Banner"
 import SectionTitle from "@/components/SectionTitle"
+import { getDeck } from "@/deck/server/get"
 import { redirect } from "next/navigation"
 import { getStepPath, steps } from "../steps"
 import EntryDeckForm from "./EntryDeckForm"
@@ -8,6 +9,7 @@ import EntryDeckForm from "./EntryDeckForm"
 export default async function JoinEntryDeckPage() {
     const session = await auth()
     if (!session) return redirect(getStepPath(steps[0].segment))
+    const deck = await getDeck(session.user.id)
     return (
         <div>
             <SectionTitle>
@@ -20,6 +22,7 @@ export default async function JoinEntryDeckPage() {
 
             <EntryDeckForm
                 userId={session.user.id}
+                defaultValue={deck}
             />
         </div>
     )

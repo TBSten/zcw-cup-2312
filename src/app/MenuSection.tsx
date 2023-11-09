@@ -26,15 +26,6 @@ const MenuSection: FC<MenuSectionProps> = () => {
                 <TopMenuCard
                     image={{
                         src: CupInfoImage,
-                        alt: "参加者情報",
-                        priority: true,
-                    }}
-                    title="参加者情報"
-                    href="/participants"
-                />
-                <TopMenuCard
-                    image={{
-                        src: CupInfoImage,
                         alt: "大会情報",
                         priority: true,
                     }}

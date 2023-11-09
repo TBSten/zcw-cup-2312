@@ -39,7 +39,7 @@ const MenuSection: FC<MenuSectionProps> = () => {
                         priority: true,
                     }}
                     title="大会情報"
-                    href="/about-wiki-cup"
+                    href="/about"
                 />
             </SimpleGrid>
             <Space h="md" />

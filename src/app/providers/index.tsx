@@ -2,6 +2,7 @@ import { ReactNode } from "react"
 import ReactQueryProvider from "./ReactQueryProvider"
 import SessionProvider from "./SessionProvider"
 import StyleProvider from "./StyleProvider"
+import ToastProvider from "./ToastProvider"
 
 interface ProvidersProps {
     children?: ReactNode
@@ -11,7 +12,9 @@ const Providers = ({ children }: ProvidersProps) => {
         <ReactQueryProvider>
             <SessionProvider>
                 <StyleProvider>
-                    {children}
+                    <ToastProvider>
+                        {children}
+                    </ToastProvider>
                 </StyleProvider>
             </SessionProvider>
         </ReactQueryProvider>

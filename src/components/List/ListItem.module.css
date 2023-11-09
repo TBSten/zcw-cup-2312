@@ -4,6 +4,11 @@
     padding-left: var(--mantine-spacing-xs);
     padding-right: var(--mantine-spacing-xs);
     background: var(--mangine-color-default);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: start;
+    border: solid 2px transparent;
 }
 
 .container:hover {
@@ -17,4 +22,12 @@
 
 .selected:hover {
     border: solid 2px var(--mantine-primary-color-filled-hover);
+}
+
+.container .icon{
+    flex: 0 0 ;
+    padding-right: var(--mantine-spacing-xs);
+}
+.container .content{
+    flex: 1 1;
 }

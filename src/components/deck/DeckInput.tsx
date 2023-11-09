@@ -3,7 +3,7 @@ import { Card } from "@/deck/card/type"
 import { deckCardCount } from "@/deck/constants"
 import { Deck } from "@/deck/type"
 import { Grid } from "@mantine/core"
-import { FC, Fragment, useCallback, useState } from "react"
+import { FC, Fragment, memo, useCallback, useMemo, useState } from "react"
 import CardInput from "./CardInput"
 
 interface DeckInputProps {
@@ -12,10 +12,10 @@ interface DeckInputProps {
     allCards: Card[]
 }
 const DeckInput: FC<DeckInputProps> = ({ deck, onChangeDeck, allCards }) => {
-    const cards: (Card | null)[] = Array.from(
+    const cards: (Card | null)[] = useMemo(() => Array.from(
         { length: deckCardCount },
         (_, i) => deck.cards[i] ?? null,
-    )
+    ), [deck.cards])
     const handleSelectCard = (index: number, card: Card | null) => {
         onChangeDeck(p => {
             const newCards = [...p.cards]
@@ -53,7 +53,7 @@ const DeckInput: FC<DeckInputProps> = ({ deck, onChangeDeck, allCards }) => {
     )
 }
 
-export default DeckInput
+export default memo(DeckInput)
 
 export const useDeckInput = (defaultValue: Deck) => {
     const [deck, setDeck] = useState<Deck>(defaultValue)

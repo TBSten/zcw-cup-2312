@@ -1,10 +1,13 @@
 import { auth } from "@/auth/server/auth"
 import Banner from "@/components/Banner"
+import CenterLoader from "@/components/CenterLoader"
 import SectionTitle from "@/components/SectionTitle"
+import { getAllCards } from "@/deck/card/getAllCards"
 import { getDeck } from "@/deck/server/get"
 import { redirect } from "next/navigation"
+import { Suspense } from "react"
 import { getStepPath, steps } from "../steps"
-import EntryDeckForm from "./EntryDeckForm"
+import EntryDeckForm, { EntryDeckFormProps } from "./EntryDeckForm"
 
 export default async function JoinEntryDeckPage() {
     const session = await auth()
@@ -20,10 +23,22 @@ export default async function JoinEntryDeckPage() {
                 登録したデッキは大会前日まで変更可能です。
             </Banner>
 
-            <EntryDeckForm
-                userId={session.user.id}
-                defaultValue={deck}
-            />
+            <Suspense fallback={<CenterLoader />}>
+                <EntryDeckFormContainer
+                    userId={session.user.id}
+                    defaultValue={deck}
+                />
+            </Suspense>
         </div>
+    )
+}
+
+const EntryDeckFormContainer = async (props: Omit<EntryDeckFormProps, "cards">) => {
+    const cards = await getAllCards()
+    return (
+        <EntryDeckForm
+            {...props}
+            cards={cards}
+        />
     )
 }

@@ -1,6 +1,7 @@
 "use client"
 import DeckInput, { useDeckInput } from "@/components/deck/DeckInput"
 import Reward from "@/components/reward/Reward"
+import { Card } from "@/deck/card/type"
 import { deckCardCount } from "@/deck/constants"
 import { Deck } from "@/deck/type"
 import { sleep } from "@/util/sleep"
@@ -13,11 +14,12 @@ import { useReward } from "react-rewards"
 import { Step, getPrevStep, getStepPath } from "../steps"
 import { handleSaveDeck } from "./actions"
 
-interface EntryDeckFormProps {
+export interface EntryDeckFormProps {
     defaultValue: Deck | null
     userId: string
+    cards: Card[]
 }
-const EntryDeckForm: FC<EntryDeckFormProps> = ({ defaultValue, userId }) => {
+const EntryDeckForm: FC<EntryDeckFormProps> = ({ defaultValue, userId, cards }) => {
     const segment = "entry-deck"
     const prevStepPath = getStepPath(getPrevStep(segment) as Step)
 
@@ -50,11 +52,7 @@ const EntryDeckForm: FC<EntryDeckFormProps> = ({ defaultValue, userId }) => {
         <div>
             <DeckInput
                 {...deckInput.props}
-                allCards={[
-                    { id: "001", name: "test1", image: "https://tbsten.me/tbsten500x500.png", resizedImage: "https://tbsten.me/tbsten500x500.png" },
-                    { id: "002", name: "test2", image: "https://tbsten.me/tbsten500x500.png", resizedImage: "https://tbsten.me/tbsten500x500.png" },
-                    { id: "003", name: "test3", image: "https://tbsten.me/tbsten500x500.png", resizedImage: "https://tbsten.me/tbsten500x500.png" },
-                ]}
+                allCards={cards}
             />
 
             <div>

@@ -9,7 +9,7 @@ import { FC } from "react"
 import { useQuery } from "react-query"
 import Logo from "../Logo"
 import styles from "./Header.module.css"
-import { getProfileByUserId } from "./actions"
+import { getDeckAction, getProfileAction } from "./actions"
 
 interface HeaderProps {
 }
@@ -43,30 +43,47 @@ interface AvatarProps {
     user: User
 }
 const Avatar: FC<AvatarProps> = ({ user }) => {
-    const { data: profile, isLoading } = useQuery({
-        queryKey: ["profile", user?.id],
+    const profile = useQuery({
+        queryKey: ["profile", user.id],
         queryFn: async () => {
-            const userId = user?.id
-            if (!userId) return
-            return await getProfileByUserId(userId)
+            const userId = user.id
+            return await getProfileAction(userId)
         },
     })
+    const isSavedProfile = (!profile.isLoading && profile.data)
+
+    const deck = useQuery({
+        queryKey: ["deck", user.id],
+        queryFn: async () => {
+            const userId = user.id
+            return await getDeckAction(userId)
+        },
+    })
+    const isSavedDeck = (!deck.isLoading && deck.data)
     return (
         <Menu>
             <Menu.Target>
                 <Image
                     className={styles.icon}
-                    src={profile?.icon ?? user.image ?? "/default-user-icon.png"}
-                    alt={profile?.name ?? user.name ?? "不明なユーザ"}
+                    src={profile.data?.icon ?? user.image ?? "/default-user-icon.png"}
+                    alt={profile.data?.name ?? user.name ?? "不明なユーザ"}
                     width={30}
                     height={30}
                     unoptimized
                 />
             </Menu.Target>
             <Menu.Dropdown>
-                <Menu.Label>{user.name}</Menu.Label>
+                <Menu.Label>{profile.data?.name ?? user.name}</Menu.Label>
+                {isSavedProfile &&
+                    <Menu.Item component={Link} href="/profile/">
+                        プロフィール
+                    </Menu.Item>
+                }
                 <Menu.Item component={Link} href="/profile/edit">
-                    {(!isLoading && !profile) ? "プロフィールを登録" : "プロフィールを編集"}
+                    {isSavedProfile ? "プロフィールを登録" : "プロフィールを編集"}
+                </Menu.Item>
+                <Menu.Item component={Link} href="/profile/edit">
+                    {isSavedDeck ? "デッキを登録" : "デッキを編集"}
                 </Menu.Item>
                 <Menu.Divider />
                 <Menu.Item onClick={() => logout()}>

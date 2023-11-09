@@ -19,7 +19,8 @@ export default async function JoinEntryProfilePage() {
                 defaultValues={{
                     name: profile?.name ?? session.user.name ?? "",
                     tonamelId: profile?.tonamelId ?? "",
-                    other: profile?.detail ?? "",
+                    detail: profile?.detail ?? "",
+                    icon: profile?.icon ?? session.user.image ?? "",
                 }}
             />
         </div>

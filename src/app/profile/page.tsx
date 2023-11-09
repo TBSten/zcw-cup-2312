@@ -23,6 +23,7 @@ const ProfilePage: NextPage<Props> = async ({ }) => {
                     alt={profile.name ?? "名前未設定"}
                     width={200}
                     height={200}
+                    style={{ objectFit: "cover" }}
                 />
                 <Title order={3} my="md">
                     {profile.name}

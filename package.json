@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@google-cloud/firestore": "^7.1.0",
+    "@google-cloud/storage": "^7.6.0",
     "@mantine/core": "^7.1.7",
     "@mantine/hooks": "^7.1.7",
     "@types/uuid": "^9.0.6",

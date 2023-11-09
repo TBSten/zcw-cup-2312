@@ -1,8 +1,11 @@
 "use client"
 
 import { Profile } from "@/auth/type"
-import { Box, TextInput, Textarea } from "@mantine/core"
+import { selectFile, upload } from "@/image/upload"
+import { useMutate } from "@/util/useMutate"
+import { Box, Button, Input, Loader, Stack, TextInput, Textarea } from "@mantine/core"
 import { User } from "next-auth"
+import Image from "next/image"
 import { FC, ReactNode, createContext, useMemo, useState } from "react"
 
 export const profileFormContext = createContext<null | { isValid: boolean, data: Profile }>(null)
@@ -12,7 +15,8 @@ interface ProfileFormProps {
     defaultValues: {
         name: string
         tonamelId: string
-        other: string
+        detail: string
+        icon: string
     }
     actions: ReactNode
 }
@@ -23,17 +27,27 @@ const ProfileForm: FC<ProfileFormProps> = ({ user, defaultValues, actions }) => 
     const [tonamelId, setTonamelId] = useState(defaultValues.tonamelId)
     const isValidTonamelId = tonamelId.trim().length >= 1
 
-    const [other, setOther] = useState(defaultValues.other)
-    const isValidOther = true
+    const [detail, setDetail] = useState(defaultValues.detail)
+    const isValidDetail = true
 
-    const isValid = isValidName && isValidTonamelId && isValidOther
+    const [icon, setIcon] = useState(defaultValues.icon)
+    const isValidIcon = true
+
+    const isValid = isValidName && isValidTonamelId && isValidDetail && isValidIcon
 
     const profile: Profile = useMemo(() => ({
         name,
-        icon: "/default-icon.png",
-        detail: other,
+        icon,
+        detail: detail,
         tonamelId,
-    }), [name, other, tonamelId])
+    }), [name, icon, detail, tonamelId])
+
+    const selectAndUploadIcon = useMutate(async () => {
+        const file = await selectFile({ accept: "image/*" })
+        if (!file) return
+        const imageUrl = await upload(file)
+        setIcon(imageUrl)
+    })
 
     return (
         <Box py="md">
@@ -60,14 +74,36 @@ const ProfileForm: FC<ProfileFormProps> = ({ user, defaultValues, actions }) => 
                     onChange={e => setTonamelId(e.target.value)}
                     error={!isValidTonamelId ? "入力値が不正です。" : null}
                 />
+                <Input.Wrapper
+                    label="アイコン"
+                >
+                    <Stack gap="xs">
+                        <Image
+                            src={icon}
+                            alt={name}
+                            width={200}
+                            height={200}
+                            style={{ objectFit: "cover", border: "solid 1px gray" }}
+                        />
+                        <Button
+                            variant="light"
+                            onClick={() => selectAndUploadIcon.mutate(null)}
+                            w="fit-content"
+                            disabled={selectAndUploadIcon.isLoading}
+                            leftSection={selectAndUploadIcon.isLoading && <Loader size="sm" />}
+                        >
+                            画像を変更
+                        </Button>
+                    </Stack>
+                </Input.Wrapper>
                 <Textarea
                     label="その他"
                     description="運営に伝えておきたいことがあれば入力してください。"
                     my="md"
                     rows={3}
-                    value={other}
-                    onChange={e => setOther(e.target.value)}
-                    error={!isValidOther ? "入力値が不正です。" : null}
+                    value={detail}
+                    onChange={e => setDetail(e.target.value)}
+                    error={!isValidDetail ? "入力値が不正です。" : null}
                 />
 
                 <div>

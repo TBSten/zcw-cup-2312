@@ -18,8 +18,9 @@ const EditForm: FC<EditFormProps> = ({ session, profile }) => {
             user={session.user}
             defaultValues={{
                 name: profile?.name ?? session.user.name ?? "",
-                other: profile?.detail ?? "",
+                detail: profile?.detail ?? "",
                 tonamelId: profile?.tonamelId ?? "",
+                icon: profile?.icon ?? session.user.image ?? "/default-icon.png",
             }}
             actions={
                 <ProfileEditActions

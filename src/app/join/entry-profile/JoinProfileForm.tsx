@@ -19,7 +19,8 @@ interface JoinProfileFormProps {
     defaultValues: {
         name: string
         tonamelId: string
-        other: string
+        detail: string
+        icon: string
     }
 }
 const JoinProfileForm: FC<JoinProfileFormProps> = ({ defaultValues, user }) => {

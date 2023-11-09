@@ -4,6 +4,7 @@ const nextConfig = {
         domains: [
             // ZCW の画像
             'firebasestorage.googleapis.com',
+            "storage.googleapis.com",
         ],
     },
 }

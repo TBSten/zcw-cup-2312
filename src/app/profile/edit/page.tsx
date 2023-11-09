@@ -2,9 +2,10 @@
 import { auth } from "@/auth/server/auth"
 import { getProfile } from "@/auth/server/getProfile"
 import SectionTitle from "@/components/SectionTitle"
+import { Divider } from "@mantine/core"
 import { FC } from "react"
 import PleaseLogin from "../PleaseLogin"
-import EditForm from "./EditForm"
+import EditProfileForm from "./EditProfileForm"
 
 interface ProfileEditPageProps {
 }
@@ -17,10 +18,11 @@ const ProfileEditPage: FC<ProfileEditPageProps> = async () => {
             <SectionTitle>
                 プロフィールの編集
             </SectionTitle>
-            <EditForm
+            <EditProfileForm
                 session={session}
                 profile={profile}
             />
+            <Divider />
         </div>
     )
 }

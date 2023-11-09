@@ -12,7 +12,7 @@ interface EditFormProps {
     session: Session
     profile: Profile | null
 }
-const EditForm: FC<EditFormProps> = ({ session, profile }) => {
+const EditProfileForm: FC<EditFormProps> = ({ session, profile }) => {
     return (
         <ProfileForm
             user={session.user}
@@ -31,7 +31,7 @@ const EditForm: FC<EditFormProps> = ({ session, profile }) => {
     )
 }
 
-export default EditForm
+export default EditProfileForm
 
 interface ProfileEditActionsProps {
     session: Session

@@ -4,7 +4,9 @@ interface LogoProps {
 }
 const Logo: FC<LogoProps> = () => {
     return (
-        <div>Logo</div>
+        <div>
+            ZutomayoCard大会
+        </div>
     )
 }
 

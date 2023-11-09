@@ -32,7 +32,9 @@ const ProfilePage: NextPage<Props> = async ({ }) => {
             <Box my="sm">
                 TonamelのID
                 {" : "}
-                {profile.tonamelId}
+                <Link href={`https://tonamel.com/player/${profile.tonamelId}`}>
+                    {profile.tonamelId}
+                </Link>
             </Box>
             <Divider my="md" />
             <div>

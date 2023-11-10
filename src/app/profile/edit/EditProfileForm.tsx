@@ -43,8 +43,8 @@ const ProfileEditActions: FC<ProfileEditActionsProps> = ({ session }) => {
         if (!form.isValid) return
         await handleSaveProfile(session.user.id, form.data)
     }, {
-        onSuccess: { toast: "保存できました！" },
-        onError: { toast: "保存できませんでした..." },
+        onSuccess: { toast: "プロフィールを保存できました！" },
+        onError: { toast: "エラーが発生しました...\nもう一度やり直してください。" },
     })
     return (
         <div>
@@ -55,7 +55,7 @@ const ProfileEditActions: FC<ProfileEditActionsProps> = ({ session }) => {
                     saveProfile.isLoading && <Loader size="sm" />
                 }
             >
-                保存
+                プロフィールを保存
             </Button>
         </div>
     )

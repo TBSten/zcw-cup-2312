@@ -1,9 +1,9 @@
 "use client"
 
 import { Profile } from "@/auth/type"
-import { selectFile, upload } from "@/image/upload"
+import { upload } from "@/image/upload"
 import { useMutate } from "@/util/useMutate"
-import { Box, Button, Input, Loader, Stack, TextInput, Textarea } from "@mantine/core"
+import { Box, Button, FileButton, Input, Loader, Stack, TextInput, Textarea } from "@mantine/core"
 import { User } from "next-auth"
 import Image from "next/image"
 import { FC, ReactNode, createContext, useMemo, useState } from "react"
@@ -42,8 +42,7 @@ const ProfileForm: FC<ProfileFormProps> = ({ user, defaultValues, actions }) => 
         tonamelId,
     }), [name, icon, detail, tonamelId])
 
-    const selectAndUploadIcon = useMutate(async () => {
-        const file = await selectFile({ accept: "image/*" })
+    const handleChangeProfileIcon = useMutate(async (file: File | null) => {
         if (!file) return
         const imageUrl = await upload(file)
         setIcon(imageUrl)
@@ -85,15 +84,22 @@ const ProfileForm: FC<ProfileFormProps> = ({ user, defaultValues, actions }) => 
                             height={200}
                             style={{ objectFit: "cover", border: "solid 1px gray" }}
                         />
-                        <Button
-                            variant="light"
-                            onClick={() => selectAndUploadIcon.mutate(null)}
-                            w="fit-content"
-                            disabled={selectAndUploadIcon.isLoading}
-                            leftSection={selectAndUploadIcon.isLoading && <Loader size="sm" />}
+                        <FileButton
+                            onChange={handleChangeProfileIcon.mutate}
+                            accept="image/*"
                         >
-                            画像を変更
-                        </Button>
+                            {(props) =>
+                                <Button
+                                    variant="light"
+                                    w="fit-content"
+                                    disabled={handleChangeProfileIcon.isLoading}
+                                    leftSection={handleChangeProfileIcon.isLoading && <Loader size="sm" />}
+                                    {...props}
+                                >
+                                    画像を変更
+                                </Button>
+                            }
+                        </FileButton>
                     </Stack>
                 </Input.Wrapper>
                 <Textarea

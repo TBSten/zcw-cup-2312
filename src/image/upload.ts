@@ -14,7 +14,7 @@ export const selectFile = ({ accept = "*/*" }: Partial<{ accept: string }> = {})
     const input = document.createElement("input")
     input.type = "file"
     input.accept = accept
-    input.addEventListener("change", () => {
+    input.addEventListener("change", (e) => {
         const file = input.files?.[0] ?? null
         resolve(file)
     })

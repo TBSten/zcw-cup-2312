@@ -1,6 +1,8 @@
 import { storage } from "@/gcs"
 import { randomId } from "@/util/random"
 
+export const dynamic = "force-dynamic"
+
 export const GET = async () => {
     const fileName = randomId()
     const bucket = storage.bucket("zcw-cup--user-contents")

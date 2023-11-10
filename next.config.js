@@ -1,11 +1,18 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
     images: {
-        domains: [
+        remotePatterns: [
             // ZCW の画像
-            'firebasestorage.googleapis.com',
-            "storage.googleapis.com",
-        ],
+            {
+                protocol: "https",
+                hostname: 'firebasestorage.googleapis.com',
+            },
+            // アップロードしたファイル
+            {
+                protocol: "https",
+                hostname: 'storage.googleapis.com',
+            },
+        ]
     },
 }
 

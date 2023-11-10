@@ -86,6 +86,13 @@ const Avatar: FC<AvatarProps> = ({ user }) => {
                     {isSavedDeck ? "デッキを登録" : "デッキを編集"}
                 </Menu.Item>
                 <Menu.Divider />
+                <Menu.Item component={Link} href="/">
+                    トップ
+                </Menu.Item>
+                <Menu.Item component={Link} href="/about">
+                    大会情報
+                </Menu.Item>
+                <Menu.Divider />
                 <Menu.Item onClick={() => logout()}>
                     ログアウト
                 </Menu.Item>

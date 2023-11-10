@@ -20,7 +20,7 @@ export default async function JoinEntryProfilePage() {
                     name: profile?.name ?? session.user.name ?? "",
                     tonamelId: profile?.tonamelId ?? "",
                     detail: profile?.detail ?? "",
-                    icon: profile?.icon ?? session.user.image ?? "",
+                    icon: profile?.icon ?? "/default-icon.png",
                 }}
             />
         </div>

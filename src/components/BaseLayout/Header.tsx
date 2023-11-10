@@ -65,7 +65,7 @@ const Avatar: FC<AvatarProps> = ({ user }) => {
             <Menu.Target>
                 <Image
                     className={styles.icon}
-                    src={profile.data?.icon ?? user.image ?? "/default-user-icon.png"}
+                    src={profile.data?.icon ?? "/default-icon.png"}
                     alt={profile.data?.name ?? user.name ?? "不明なユーザ"}
                     width={30}
                     height={30}

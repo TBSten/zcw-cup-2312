@@ -20,7 +20,7 @@ const EditProfileForm: FC<EditFormProps> = ({ session, profile }) => {
                 name: profile?.name ?? session.user.name ?? "",
                 detail: profile?.detail ?? "",
                 tonamelId: profile?.tonamelId ?? "",
-                icon: profile?.icon ?? session.user.image ?? "/default-icon.png",
+                icon: profile?.icon ?? "/default-icon.png",
             }}
             actions={
                 <ProfileEditActions
